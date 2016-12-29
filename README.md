@@ -142,12 +142,6 @@ public class MovieController {
 ``` 
 * example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*nic")``` => ["Titanic", ...]
 
-### search with Query
-```java 
-<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
-``` 
-* example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
-
 ### Query Functions
 ```java 
 @QueryController
@@ -166,8 +160,9 @@ public class QueryFunctions {
 	}
 	...
 ``` 
-* QueryFunctions are load when server start. Always recommended use QueryFunctions insted of using **search with Query** because of QueryFunctions are faster than **search with Query**.
+* QueryFunctions are used PlaceHolders with '@' prefix to pass runtime values into query. Ex: @parm_key, @parm_value
 
+* Calling QueryFunctions by using SearchBoxOperations.
 ```java 
 <T> SearchResult<T> search(String queryName, Map<String, Object> inputParms, Page page) throws SearchBoxOperationsException;
 ``` 
@@ -182,3 +177,10 @@ parms.put("parm_value", "Avatar");
 searchBoxOperations.search("query1", parms);
 
 ```
+
+### search with Query
+```java 
+<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
+``` 
+* example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
+* **note** : QueryFunctions are load when server start. Always recommended use QueryFunctions insted of using **search with Query** because of QueryFunctions are faster than **search with Query**.
