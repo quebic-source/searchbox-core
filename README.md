@@ -69,13 +69,13 @@ public class App
  * Some of the optional properties.
  ```properties 
  
- searchbox.page.length =  #Search result page size. Default value is 10
+ searchbox.page.length =  # Search result page size. Default value is 10
  
- server.host = #Http server host. Default value is localhost
- server.port = #Http server port. Default value is 1028
+ server.host = # Http server host. Default value is localhost
+ server.port = # Http server port. Default value is 1028
  
- redis.host = #Redis server host. Default value is localhost
- redis.port = #Redis server port. Default value is 6379
+ redis.host = # Redis server host. Default value is localhost
+ redis.port = # Redis server port. Default value is 6379
  
  ```
  
