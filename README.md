@@ -42,7 +42,7 @@ searchbox is a lightweight search framework built on redis.
  * Run the application using **java -jar target\movies-search-app-0.0.1-SNAPSHOT.jar**
  * Consume web app from **localhost:1028**
  
-## Stand up SearchBox
+## Stand up searchbox
 ```java
 @SpringBootApplication
 @EnableSearchBox
@@ -55,7 +55,7 @@ public class App
     
 }
 ```
- * You can easily integrate **searchbox** with your Spring application.
+ * You can easily integrate **searchbox** with your Spring application by using **@EnableSearchBox**.
 
 ### SearchBox configuration
  * Add some properties into **../src/main/resources/application.properties** or **../src/main/resources/application.yml**
