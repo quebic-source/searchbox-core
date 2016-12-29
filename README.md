@@ -140,4 +140,4 @@ public class MovieController {
 ```java 
 <T> SearchResult<T> searchByFieldPattern(Class<T> cls, String field, String pattern, Page page) throws SearchBoxOperationsException;
 ``` 
-* example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*av")``` => ["Avatar", "Avengers", ...]
+* example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*nic")``` => ["Titanic", ...]
