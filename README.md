@@ -124,14 +124,20 @@ public class MovieController {
 * **update** Check id is exists. Then modify perticular model. Otherwise raised Id is not found exception. 
 * **save** Check id is exists. If Id is exists update the model. Otherwise insert a new model.
 
-### search for field value
+### search by field value
 ```java 
 <T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue, Page page) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.searchByField(Movie.class, "id", id)```
 
-### search for perfix value
+### search by perfix value
 ```java 
 <T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix, Page page, boolean allWords) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.searchByFieldPerfix(Movie.class, "title", "av")``` => ["Avatar", "Avengers", ...]
+
+### search by text pattern
+```java 
+<T> SearchResult<T> searchByFieldPattern(Class<T> cls, String field, String pattern, Page page) throws SearchBoxOperationsException;
+``` 
+* example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*av")``` => ["Avatar", "Avengers", ...]
