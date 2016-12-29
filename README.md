@@ -123,3 +123,10 @@ public class MovieController {
 * **insert** Check id is exists. Not allow for duplicate ids.
 * **update** Check id is exists. Then modify perticular model. Otherwise raised Id is not found exception. 
 * **save** Check id is exists. If Id is exists update the model. Otherwise insert a new model.
+
+### search for field value
+```java 
+<T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue) throws SearchBoxOperationsException;
+<T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue, Page page) throws SearchBoxOperationsException;
+``` 
+* example ```searchBoxOperations.searchByField(Movie.class, "id", id)```
