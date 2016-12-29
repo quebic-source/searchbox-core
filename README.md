@@ -102,3 +102,15 @@ public class Movie {
  * **@Id** annotation is used to mention identity field of the model. Each model has a unique id.
  * **@Index** annotation is used to mention index fields of the model. Searching is perform only for index fields.
  
+## SearchBoxOperations
+```java
+@RestController
+@RequestMapping("/movies")
+public class MovieController {
+	
+	@Autowired
+	private SearchBoxOperations searchBoxOperations;
+	
+	...
+	
+```
