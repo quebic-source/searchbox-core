@@ -6,6 +6,9 @@ searchbox is a lightweight search framework built on redis.
   * Maven 3.3.X
   * Redis 2.6.X
 
+### Full Documentation
+See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full documentation, examples, operational details and other information.
+
 ### Getting Started
   * Add searchbox dependency.
   ```xml
