@@ -184,3 +184,10 @@ searchBoxOperations.search("query1", parms);
 ``` 
 * example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
 * note : QueryFunctions are load when server boot. Always recommended use QueryFunctions insted of using **search with Query** because of QueryFunctions are faster than **search with Query**.
+
+## Authors
+* Tharanga Thennakoon - tharanganilupul@gmail.com 
+* [Linkedin](https://lk.linkedin.com/in/tharanga-thennakoon)
+
+## License
+* This project is licensed under the Apache Licensed V2
