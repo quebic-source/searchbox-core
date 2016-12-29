@@ -57,7 +57,7 @@ public class App
 ```
  * You can easily integrate **searchbox** with your Spring application by using **@EnableSearchBox** annotation.
 
-### SearchBox configuration
+### searchbox configuration
  * Add some properties into **../src/main/resources/application.properties** or **../src/main/resources/application.yml**
  * **appname** is a required property. It is used to identify individual applications.
  ```properties 
