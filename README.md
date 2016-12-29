@@ -147,3 +147,38 @@ public class MovieController {
 <T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
+
+### Query Functions
+```java 
+@QueryController
+public class QueryFunctions {
+
+	@QueryFunction("query1")
+	public QueryHolder query1() throws Exception{
+		
+		Criteria c = Criteria
+				.where("@parm_key").is("@parm_value");
+		
+		Query query = new Query(c);
+		
+		return new QueryHolder(Movie.class, query);
+		
+	}
+	...
+``` 
+* QueryFunctions are load when server start. Always recommended use QueryFunctions insted of using **search with Query** because of QueryFunctions are faster than **search with Query**.
+
+```java 
+<T> SearchResult<T> search(String queryName, Map<String, Object> inputParms, Page page) throws SearchBoxOperationsException;
+``` 
+* example 
+```java
+String queryName = "query1";
+		
+Map<String, Object> parms = new HashMap<>();
+parms.put("parm_key", "title");
+parms.put("parm_value", "Avatar");
+	
+searchBoxOperations.search("query1", parms);
+
+```
