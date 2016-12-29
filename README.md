@@ -66,3 +66,4 @@ public class App
  searchbox.page.length = 5
  
  ```
+## Stand up SearchBox
