@@ -1,5 +1,5 @@
 # searchbox
-searchbox is a lightweight search framework built on redis
+searchbox is a lightweight search framework built on redis.
 
 ### Prerequisities
   * JDK 1.8.X
@@ -35,3 +35,28 @@ searchbox is a lightweight search framework built on redis
         </repository>
     </repositories>
   ```
+
+### Sample application
+ * Download the [movies-search-app](https://github.com/loviworld/searchbox-samples/movies-search-app) application from GitHub
+ * Build the application using **mvn package**
+ * Run the application using **java -jar target\movies-search-app-0.0.1-SNAPSHOT.jar**
+ * Consume web app from **localhost:1028**
+ 
+## Stand up SearchBox
+```java
+@SpringBootApplication
+@EnableSearchBox
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	SpringApplication.run(App.class, args);
+    }
+    
+}
+```
+ * You can easily integrate **searchbox** with your Spring application.
+
+### SearchBox configuration
+ * Add some properties into **../src/main/resources/application.properties** or **../src/main/resources/application.yml**
+ * **appname** is required property. It is used to identify  
