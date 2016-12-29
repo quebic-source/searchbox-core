@@ -114,3 +114,12 @@ public class MovieController {
 	...
 	
 ```
+### insert,update and save
+```java 
+<T> void insert(T object) throws SearchBoxOperationsException
+<T> void update(T object) throws SearchBoxOperationsException
+<T> void sace(T object) throws SearchBoxOperationsException
+``` 
+* **insert** Check id is exists. Not allow for duplicate ids.
+* **update** Check id is exists. Then modify perticular model. Otherwise rised Id is not found exception. 
+* **save** Check id is exists. Id exists update the model. Otherwise insert new model.
