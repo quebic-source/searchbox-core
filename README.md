@@ -40,7 +40,7 @@ See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full docume
   ```
 
 ### Sample application
- * Download the [movies-search-app](https://github.com/loviworld/searchbox-samples/movies-search-app) application from GitHub
+ * Download the [movies-search-app](https://github.com/loviworld/searchbox-samples/tree/master/movies-search-app) application from GitHub
  * Build the application using **mvn package**
  * Run the application using **java -jar target\movies-search-app-0.0.1-SNAPSHOT.jar**
  * Consume web app from **localhost:1028**
