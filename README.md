@@ -59,4 +59,10 @@ public class App
 
 ### SearchBox configuration
  * Add some properties into **../src/main/resources/application.properties** or **../src/main/resources/application.yml**
- * **appname** is required property. It is used to identify  
+ * **appname** is required property. It is used to identify individual applications.
+ ```yml 
+ 
+ searchbox.appname = movies-search-app
+ searchbox.page.length = 5
+ 
+ ```
