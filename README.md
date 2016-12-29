@@ -130,3 +130,12 @@ public class MovieController {
 <T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue, Page page) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.searchByField(Movie.class, "id", id)```
+
+### search for perfix value
+```java 
+<T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix) throws SearchBoxOperationsException;
+	<T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix, boolean allWords) throws SearchBoxOperationsException;
+	<T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix, Page page) throws SearchBoxOperationsException;
+	<T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix, Page page, boolean allWords) throws SearchBoxOperationsException;
+``` 
+* example ```searchBoxOperations.searchByField(Movie.class, "id", id)```
