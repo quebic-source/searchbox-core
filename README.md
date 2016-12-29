@@ -121,5 +121,5 @@ public class MovieController {
 <T> void sace(T object) throws SearchBoxOperationsException
 ``` 
 * **insert** Check id is exists. Not allow for duplicate ids.
-* **update** Check id is exists. Then modify perticular model. Otherwise rised Id is not found exception. 
-* **save** Check id is exists. Id exists update the model. Otherwise insert new model.
+* **update** Check id is exists. Then modify perticular model. Otherwise raised Id is not found exception. 
+* **save** Check id is exists. If Id is exists update the model. Otherwise insert a new model.
