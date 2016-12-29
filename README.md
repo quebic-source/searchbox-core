@@ -134,4 +134,4 @@ public class MovieController {
 ```java 
 <T> SearchResult<T> searchByFieldPerfix(Class<T> cls, String field, Object searchPrefix, Page page, boolean allWords) throws SearchBoxOperationsException;
 ``` 
-* example ```searchBoxOperations.searchByFieldPerfix(Movie.class, "title", "pir")``` => ["Pirates of the Caribbean",..]
+* example ```searchBoxOperations.searchByFieldPerfix(Movie.class, "title", "av")``` => ["Avatar", "Avengers", ...]
