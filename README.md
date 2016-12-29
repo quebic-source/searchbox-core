@@ -55,11 +55,11 @@ public class App
     
 }
 ```
- * You can easily integrate **searchbox** with your Spring application by using **@EnableSearchBox**.
+ * You can easily integrate **searchbox** with your Spring application by using **@EnableSearchBox** annotation.
 
 ### SearchBox configuration
  * Add some properties into **../src/main/resources/application.properties** or **../src/main/resources/application.yml**
- * **appname** is required property. It is used to identify individual applications.
+ * **appname** is a required property. It is used to identify individual applications.
  ```properties 
  
  searchbox.appname = movies-search-app
@@ -79,4 +79,26 @@ public class App
  
  ```
  
-## Stand up SearchBox
+## Model Annotations
+```java
+
+public class Movie {
+	
+	@Id
+	@Index
+	private int id;
+	
+	@Index
+	private String title;
+	
+	@Index
+	private String director;
+
+	private int duration;
+	
+	...
+
+```
+ * **@Id** annotation is used to mention identity field of the model. Each model has a unique id.
+ * **@Index** annotation is used to mention index fields of the model. Searching is perform only for index fields.
+ 
