@@ -141,3 +141,9 @@ public class MovieController {
 <T> SearchResult<T> searchByFieldPattern(Class<T> cls, String field, String pattern, Page page) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*nic")``` => ["Titanic", ...]
+
+### search with Query
+```java 
+<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
+``` 
+* example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
