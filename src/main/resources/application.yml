@@ -1,0 +1,4 @@
+# Spring properties
+spring:
+  application:
+    name: searchbox

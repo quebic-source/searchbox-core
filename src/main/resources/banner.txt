@@ -1,0 +1,4 @@
+###############
+## searchbox ##
+###############
+${searchbox.appname}
