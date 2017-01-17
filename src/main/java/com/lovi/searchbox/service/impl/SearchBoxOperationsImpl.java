@@ -183,6 +183,9 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 
 					field.setAccessible(true);
 					Object val = field.get(object);
+					
+					if(val == null) continue;
+					
 					field.setAccessible(false);
 
 					searchDataRedisCaller.prepareSearchData(tableName, field.getName(), val.toString(), id.toString());
