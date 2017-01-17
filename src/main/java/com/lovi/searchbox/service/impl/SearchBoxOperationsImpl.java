@@ -4,6 +4,7 @@ import static com.lovi.searchbox.config.ConfigKeys.lua_input_parm_key;
 import static com.lovi.searchbox.config.ConfigKeys.lua_input_parm_value;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -184,11 +185,22 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 					field.setAccessible(true);
 					Object val = field.get(object);
 					
-					if(StringUtils.isEmpty(val)) continue;
+					if(StringUtils.isEmpty(val)) {
+						field.setAccessible(false);
+						continue;
+					}
+					
+					if(val instanceof Collection){
+						
+						for(Object v : (Collection<?>)val){
+							searchDataRedisCaller.prepareSearchData(tableName, field.getName(), v.toString(), id.toString());
+						}
+						
+					}else{
+						searchDataRedisCaller.prepareSearchData(tableName, field.getName(), val.toString(), id.toString());
+					}
 					
 					field.setAccessible(false);
-
-					searchDataRedisCaller.prepareSearchData(tableName, field.getName(), val.toString(), id.toString());
 
 				}
 			}
