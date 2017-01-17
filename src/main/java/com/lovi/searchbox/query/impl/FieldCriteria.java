@@ -30,7 +30,11 @@ public class FieldCriteria extends Criteria {
 		
 		switch (conditionType) {
 		case EQUAL:
-			stmt = String.format("local %1$s = redis.call('ZRANGE', app_name .. ':%2$s:' .. model_name .. ':' .. %3$s .. ':' .. remove_spaces(%4$s), 0, -1)", parm, index_table_perfix, prepare_KEYS(lua_input_parm_key), prepare_KEYS(lua_input_parm_value));	
+			stmt = String.format("local %1$s = get_models_eq(app_name .. ':%2$s:' .. model_name .. ':' .. %3$s .. ':' .. remove_spaces(%4$s))", parm, index_table_perfix, prepare_KEYS(lua_input_parm_key), prepare_KEYS(lua_input_parm_value));	
+			break;
+		
+		case NOT_EQUAL:
+			stmt = String.format("local %1$s = get_models_ne(app_name .. ':%2$s:' .. model_name .. ':' .. %3$s, remove_spaces(%4$s))", parm, index_table_perfix, prepare_KEYS(lua_input_parm_key), prepare_KEYS(lua_input_parm_value));	
 			break;
 			
 		case PREFIX_ONE_WORD:

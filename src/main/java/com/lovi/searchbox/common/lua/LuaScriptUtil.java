@@ -11,12 +11,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 public class LuaScriptUtil {
-
-	/*
-	public static String readScript(String scriptName) throws IOException {
-		Path file = Paths.get(lua_scripts_dir + "/" + scriptName + ".lua");
-		return new String(Files.readAllBytes(file));
-	}*/
 	
 	public static String readScript(String scriptName) throws IOException {
 		Resource resource = new ClassPathResource(lua_scripts_dir + "/" + scriptName + ".lua");

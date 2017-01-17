@@ -36,6 +36,10 @@ public class Query {
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.union_script());
 		stmtStringBuilder.append("\n");
+		stmtStringBuilder.append(CommonFunctions.difference_script());
+		stmtStringBuilder.append("\n");
+		stmtStringBuilder.append(CommonFunctions.symmetric_script());
+		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.is_empty());
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.sort_set_script());
@@ -48,6 +52,8 @@ public class Query {
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.json_get_value_from_json_script());
 		stmtStringBuilder.append("\n");
+		stmtStringBuilder.append(CommonFunctions.redis_get_models_eq_script());
+		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.redis_get_models_by_ids_script());
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.redis_get_models_by_pattern_script());
@@ -55,6 +61,8 @@ public class Query {
 		stmtStringBuilder.append(CommonFunctions.redis_get_models_by_range_script());
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.redis_zrangebylex_script());
+		stmtStringBuilder.append("\n");
+		stmtStringBuilder.append(CommonFunctions.redis_get_models_ne_script());
 		stmtStringBuilder.append("\n");
 		// append common lua functions
 
