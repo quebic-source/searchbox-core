@@ -28,6 +28,7 @@ public abstract class Criteria {
 	
 	protected enum ConditionTypes{
 		EQUAL,
+		NOT_EQUAL,
 		PREFIX_ONE_WORD,
 		PREFIX_ALL_WORDS,
 		LT,
@@ -45,6 +46,12 @@ public abstract class Criteria {
 	
 	public Criteria is(Object value){
 		ConditionTypes ctd = ConditionTypes.EQUAL;
+		preppareCriteriaValue(value, ctd);
+		return this;
+	}
+	
+	public Criteria ne(Object value){
+		ConditionTypes ctd = ConditionTypes.NOT_EQUAL;
 		preppareCriteriaValue(value, ctd);
 		return this;
 	}

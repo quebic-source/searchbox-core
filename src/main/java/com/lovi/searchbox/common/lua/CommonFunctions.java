@@ -16,6 +16,14 @@ public class CommonFunctions {
 		return LuaScriptUtil.readScript("common/union");
 	}
 	
+	public static String difference_script() throws IOException{
+		return LuaScriptUtil.readScript("common/difference");
+	}
+	
+	public static String symmetric_script() throws IOException{
+		return LuaScriptUtil.readScript("common/symmetric");
+	}
+	
 	public static String is_empty() throws IOException{
 		return LuaScriptUtil.readScript("common/is_empty");
 	}
@@ -42,6 +50,14 @@ public class CommonFunctions {
 	
 	public static String redis_get_models_by_ids_script() throws IOException{
 		return LuaScriptUtil.readScript("redis/get_models_by_ids");
+	}
+	
+	public static String redis_get_models_eq_script() throws IOException{
+		return LuaScriptUtil.readScript("redis/get_models_eq");
+	}
+	
+	public static String redis_get_models_ne_script() throws IOException{
+		return LuaScriptUtil.readScript("redis/get_models_ne");
 	}
 	
 	public static String redis_get_models_by_pattern_script() throws IOException{

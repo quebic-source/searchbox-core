@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.lovi.searchbox.annotation.Id;
 import com.lovi.searchbox.annotation.Index;
 import com.lovi.searchbox.common.ErrorMessage;
@@ -173,8 +175,6 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			if(id == null)
 				throw new Exception(ErrorMessage.id_field_null);
 			
-			
-
 			for (Field field : cls.getDeclaredFields()) {
 
 				Index index_annotation = field.getAnnotation(Index.class);
@@ -183,6 +183,9 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 
 					field.setAccessible(true);
 					Object val = field.get(object);
+					
+					if(StringUtils.isEmpty(val)) continue;
+					
 					field.setAccessible(false);
 
 					searchDataRedisCaller.prepareSearchData(tableName, field.getName(), val.toString(), id.toString());
