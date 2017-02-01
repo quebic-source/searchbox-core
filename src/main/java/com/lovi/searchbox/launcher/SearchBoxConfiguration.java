@@ -26,7 +26,7 @@ public class SearchBoxConfiguration{
 	private ApplicationContext applicationContext;
 	
 	@Bean
-	public SearchBoxConfig redBoxConfig(){
+	public SearchBoxConfig searchboxConfig(){
 		return new SearchBoxConfig();
 	}
 	
@@ -56,12 +56,12 @@ public class SearchBoxConfiguration{
 	}
 	
 	@Bean
-	public SearchBoxOperations redBoxService(SearchBoxConfig redBoxConfig, JedisConnectionPool jedisConnectionPool, QueryContainer queryContainer) throws Exception{
-		return new SearchBoxOperationsImpl(redBoxConfig, jedisConnectionPool, queryContainer);
+	public SearchBoxOperations searchboxService(SearchBoxConfig searchboxConfig, JedisConnectionPool jedisConnectionPool, QueryContainer queryContainer) throws Exception{
+		return new SearchBoxOperationsImpl(searchboxConfig, jedisConnectionPool, queryContainer);
 	}
 	
 	@Bean
-	public SearchBoxLauncher redboxLauncher(SearchBoxOperations redBoxService) throws Exception{
+	public SearchBoxLauncher searchboxLauncher(SearchBoxOperations searchboxService) throws Exception{
 		return new SearchBoxLauncher(applicationContext);
 	}
 	
