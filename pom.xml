@@ -12,6 +12,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<jparsec.version>3.0</jparsec.version>
 	</properties>
 
 	<parent>
@@ -53,12 +54,19 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<!-- Cache -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		
+		<!-- Jparsec -->
+		<dependency>
+			<groupId>org.jparsec</groupId>
+			<artifactId>jparsec</artifactId>
+			<version>${jparsec.version}</version>
+		</dependency>
 
 		<!-- Logger -->
 		<dependency>
