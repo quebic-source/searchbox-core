@@ -1,5 +1,6 @@
 package com.lovi.searchbox.launcher;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
@@ -9,13 +10,21 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.method.support.AsyncHandlerMethodReturnValueHandler;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.lovi.searchbox.common.async.handlers.AsyncResponseEntityReturnHandler;
 import com.lovi.searchbox.config.HttpServerConfig;
 import com.lovi.searchbox.config.HttpServerCustomizer;
 import com.lovi.searchbox.config.RedisConfig;
 import com.lovi.searchbox.config.SearchBoxConfig;
 import com.lovi.searchbox.query.QueryContainer;
 import com.lovi.searchbox.redis.JedisConnectionPool;
+import com.lovi.searchbox.service.AsyncSearchBoxOperations;
 import com.lovi.searchbox.service.SearchBoxOperations;
+import com.lovi.searchbox.service.impl.AsyncSearchBoxOperationsImpl;
 import com.lovi.searchbox.service.impl.SearchBoxOperationsImpl;
 
 @Configuration
@@ -61,6 +70,11 @@ public class SearchBoxConfiguration{
 	}
 	
 	@Bean
+	public AsyncSearchBoxOperations asyncsearchboxService(SearchBoxOperations searchBoxOperations) throws Exception{
+		return new AsyncSearchBoxOperationsImpl(searchBoxOperations);
+	}
+	
+	@Bean
 	public SearchBoxLauncher searchboxLauncher(SearchBoxOperations searchboxService) throws Exception{
 		return new SearchBoxLauncher(applicationContext);
 	}
@@ -79,4 +93,22 @@ public class SearchBoxConfiguration{
 	    };
 	    
 	}
+	
+	@Bean
+	public AsyncResponseEntityReturnHandler asyncResponseEntityReturnHandler() {
+        return new AsyncResponseEntityReturnHandler();
+    }
+	
+	@Bean
+    public WebMvcConfigurer rxJavaWebMvcConfiguration(List<AsyncHandlerMethodReturnValueHandler> handlers) {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+                if (handlers != null) {
+                    returnValueHandlers.addAll(handlers);
+                }
+            }
+        };
+    }
+	
 }

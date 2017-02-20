@@ -13,6 +13,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<jparsec.version>3.0</jparsec.version>
+		<rxjava.version>1.1.6</rxjava.version>
 	</properties>
 
 	<parent>
@@ -33,6 +34,13 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
+		</dependency>
+		
+		<!-- RxJava -->
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>${rxjava.version}</version>
 		</dependency>
 
 		<!-- JSON Mapper -->
