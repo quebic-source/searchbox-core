@@ -331,7 +331,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			
 			Object evalResult = scriptProcessor.runScriptByEvalsha(queryName, keys, argv);
 			
-			return prepareResult(modelName, query, start_time, evalResult);
+			return prepareResult(queryName, modelName, query, start_time, evalResult);
 			
 		} catch (Exception e) {
 			throw new SearchBoxOperationsException(e.getMessage(), e);
@@ -426,6 +426,10 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 	}
 	
 	private <T> SearchResult<T> prepareResult(String modelName, Query query, double start_time, Object evalResult) throws Exception{
+		return prepareResult("", modelName, query, start_time, evalResult);
+	}
+	
+	private <T> SearchResult<T> prepareResult(String queryName, String modelName, Query query, double start_time, Object evalResult) throws Exception{
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode evalResultJsonObject = objectMapper.readTree(evalResult.toString());
@@ -462,7 +466,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 		
 		double time_diff = getTimeDifference(start_time, end_time);
 
-		return new SearchResult<T>(modelName, result, new Page(pageLength, pagesCount, pageNo), documentsCount, prepareTimeDifference(time_diff));		
+		return new SearchResult<T>(modelName, result, new Page(pageLength, pagesCount, pageNo), documentsCount, queryName, prepareTimeDifference(time_diff));		
 		
 	}
 

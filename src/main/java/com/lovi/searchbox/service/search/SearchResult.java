@@ -14,16 +14,18 @@ public class SearchResult <E>{
 	private Collection<E> result;
 	private Page page;
 	private int documentsCount;
+	private String queryName;
 	private String time; 
 	
 	public SearchResult() {
 	}
 
-	public SearchResult(String modelName, Collection<E> result, Page page, int documentsCount, String time) {
+	public SearchResult(String modelName, Collection<E> result, Page page, int documentsCount, String queryName, String time) {
 		this.modelName = modelName;
 		this.result = result;
 		this.page = page;
 		this.documentsCount = documentsCount;
+		this.queryName = queryName;
 		this.time = time;
 	}
 
@@ -57,6 +59,14 @@ public class SearchResult <E>{
 
 	public void setDocumentsCount(int documentsCount) {
 		this.documentsCount = documentsCount;
+	}
+	
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
 	}
 
 	public String getTime() {
