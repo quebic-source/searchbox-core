@@ -35,8 +35,6 @@ class ParallelQueriesTask<E> extends RecursiveTask<Observable<SearchResult<E>>>{
 		
 		if(!compute){
 			
-			System.out.println("compute " + Thread.currentThread().getName());
-			
 			return Observable.from(invokeAll(createSubs())).flatMap(i->{
 				return i.join();
 			});
