@@ -151,4 +151,31 @@ public class Query {
 	 * ---Sort---
 	 */
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((criteria.toString() == null) ? 0 : criteria.toString().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Query other = (Query) obj;
+		if (criteria.toString() == null) {
+			if (other.getCriteria().toString() != null)
+				return false;
+		} else if (!criteria.toString().equals(other.getCriteria().toString()))
+			return false;
+		
+		return true;
+	}
 }
