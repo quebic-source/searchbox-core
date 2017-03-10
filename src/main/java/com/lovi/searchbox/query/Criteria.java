@@ -245,11 +245,11 @@ public abstract class Criteria {
 	}
 	
 	/**
-	 * decode Criteria and set parmPrefixId value
+	 * decode Criteria and set parmId value
 	 * @param criteria
-	 * @param parmPrefixId
+	 * @param parmId
 	 */
-	private void decode(Criteria criteria, int parmPrefixId){
+	private void decode(Criteria criteria, int parmId){
     	
     	if(criteria instanceof AndCriteria){
     		
@@ -258,10 +258,10 @@ public abstract class Criteria {
     		Criteria thisCriteria = andCriteria.getCriteria();
     		Criteria thisOtherCriteria = andCriteria.getOtherCriteria();
     		
-    		decode(thisCriteria, parmPrefixId);
-    		decode(thisOtherCriteria, parmPrefixId + 1);
+    		decode(thisCriteria, parmId);
+    		decode(thisOtherCriteria, parmId + 1);
     		
-    		andCriteria.setParmId(parmPrefixId + 2); 
+    		andCriteria.setParmId(parmId + 2); 
     		
     	}
     	
@@ -272,16 +272,16 @@ public abstract class Criteria {
     		Criteria thisCriteria = orCriteria.getCriteria();
     		Criteria thisOtherCriteria = orCriteria.getOtherCriteria();
     		
-    		decode(thisCriteria, parmPrefixId);
-    		decode(thisOtherCriteria, parmPrefixId + 1);
+    		decode(thisCriteria, parmId);
+    		decode(thisOtherCriteria, parmId + 1);
     		
-    		orCriteria.setParmId(parmPrefixId + 2); 
+    		orCriteria.setParmId(parmId + 2); 
     		
     	}
     	
     	else if(criteria instanceof FieldCriteria){
     		FieldCriteria fieldCriteria = (FieldCriteria) criteria;
-    		fieldCriteria.setParmId(parmPrefixId);
+    		fieldCriteria.setParmId(parmId);
     	}
     	
     }
