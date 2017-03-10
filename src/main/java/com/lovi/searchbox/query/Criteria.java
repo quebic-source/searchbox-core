@@ -2,12 +2,10 @@ package com.lovi.searchbox.query;
 
 import static com.lovi.searchbox.config.ConfigKeys.lua_input_parm_key;
 import static com.lovi.searchbox.config.ConfigKeys.lua_input_parm_value;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import com.lovi.searchbox.query.impl.AndCriteria;
 import com.lovi.searchbox.query.impl.FieldCriteria;
 import com.lovi.searchbox.query.impl.OrCriteria;
@@ -142,12 +140,53 @@ public abstract class Criteria {
 		
 	}
 	
+	/*
+	 * use And , Or when use nested Criteria
+	 */
+	protected Criteria preppareCriteriaValue(){
+		
+		if(this instanceof AndCriteria){
+			
+			AndCriteria andCriteria = (AndCriteria) this;
+			Criteria otherCriteria = andCriteria.getOtherCriteria();
+
+			this.getCriteriaChain().addAll(otherCriteria.getCriteriaChain());
+			
+			this.criteriaChain.add("{}");
+			this.parmId = criteriaChain.size();
+			
+			
+		}else if(this instanceof OrCriteria){
+			
+			OrCriteria orCriteria = (OrCriteria) this;
+			Criteria otherCriteria = orCriteria.getOtherCriteria();
+			
+			this.getCriteriaChain().addAll(otherCriteria.getCriteriaChain());
+			
+			this.criteriaChain.add("{}");
+			this.parmId = criteriaChain.size();
+			
+		}
+		
+		return this;
+	}
+	
 	public Criteria and(String key){
 		return new AndCriteria(this, new FieldCriteria(key, criteriaChain));
 	}
 	
+	public Criteria and(Criteria otherCriteria){
+		decode(otherCriteria, parmId + 1);
+		return new AndCriteria(this, otherCriteria).preppareCriteriaValue();
+	}
+	
 	public Criteria or(String key){
 		return new OrCriteria(this, new FieldCriteria(key, criteriaChain));
+	}
+	
+	public Criteria or(Criteria otherCriteria){
+		decode(otherCriteria, parmId + 1);
+		return new OrCriteria(this, otherCriteria).preppareCriteriaValue();
 	}
 	
 	public String createParmsMapToJson(){
@@ -204,5 +243,47 @@ public abstract class Criteria {
 	public void setConditionType(ConditionTypes conditionType) {
 		this.conditionType = conditionType;
 	}
+	
+	/**
+	 * decode Criteria and set parmPrefixId value
+	 * @param criteria
+	 * @param parmPrefixId
+	 */
+	private void decode(Criteria criteria, int parmPrefixId){
+    	
+    	if(criteria instanceof AndCriteria){
+    		
+    		AndCriteria andCriteria = (AndCriteria) criteria;
+    		
+    		Criteria thisCriteria = andCriteria.getCriteria();
+    		Criteria thisOtherCriteria = andCriteria.getOtherCriteria();
+    		
+    		decode(thisCriteria, parmPrefixId);
+    		decode(thisOtherCriteria, parmPrefixId + 1);
+    		
+    		andCriteria.setParmId(parmPrefixId + 2); 
+    		
+    	}
+    	
+    	else if(criteria instanceof OrCriteria){
+    		
+    		OrCriteria orCriteria = (OrCriteria) criteria;
+    		
+    		Criteria thisCriteria = orCriteria.getCriteria();
+    		Criteria thisOtherCriteria = orCriteria.getOtherCriteria();
+    		
+    		decode(thisCriteria, parmPrefixId);
+    		decode(thisOtherCriteria, parmPrefixId + 1);
+    		
+    		orCriteria.setParmId(parmPrefixId + 2); 
+    		
+    	}
+    	
+    	else if(criteria instanceof FieldCriteria){
+    		FieldCriteria fieldCriteria = (FieldCriteria) criteria;
+    		fieldCriteria.setParmId(parmPrefixId);
+    	}
+    	
+    }
 	
 }
