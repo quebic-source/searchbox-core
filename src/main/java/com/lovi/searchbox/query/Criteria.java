@@ -285,5 +285,10 @@ public abstract class Criteria {
     	}
     	
     }
+
+	@Override
+	public String toString() {
+		return "Criteria{" + "script='" + getScript() + '\'' + ", criteriaChain='" + criteriaChain + '\'' + "'}";
+	}
 	
 }
