@@ -23,23 +23,7 @@ See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full docume
   
   ```
 
-  * Use searchbox remote repository.
-  ```xml
-  
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>searchbox</id>
-            <name>searchbox</name>
-            <url>http://searchbox.quebic.io/repo/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-  ```
+  * Install searchbox-core dependency by using **mvn install**
 
 ### Sample application
  * Download the [movies-search-app](https://github.com/loviworld/searchbox-samples/tree/master/movies-search-app) application from GitHub
