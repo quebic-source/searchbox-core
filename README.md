@@ -1,7 +1,7 @@
 # searchbox
 searchbox is a lightweight search framework built on redis.
 
-![searchbox](https://github.com/loviworld/searchbox-core/blob/master/searchbox_inside_redis.png)
+![searchbox](https://github.com/quebic-source/searchbox-core/blob/master/searchbox_inside_redis.png)
 
 ### Prerequisities
   * JDK 1.8.X
@@ -9,7 +9,7 @@ searchbox is a lightweight search framework built on redis.
   * Redis 2.6.X
 
 ### Full Documentation
-See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full documentation, examples, operational details and other information.
+See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full documentation, examples, operational details and other information.
 
 ### Getting Started
   * Add searchbox dependency.
@@ -23,26 +23,10 @@ See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full docume
   
   ```
 
-  * Use searchbox remote repository.
-  ```xml
-  
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>searchbox</id>
-            <name>searchbox</name>
-            <url>http://searchbox.quebic.io/repo/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-  ```
+  * Install searchbox-core dependency by using **mvn install**
 
 ### Sample application
- * Download the [movies-search-app](https://github.com/loviworld/searchbox-samples/tree/master/movies-search-app) application from GitHub
+ * Download the [movies-search-app](https://github.com/quebic-source/searchbox-samples/tree/master/movies-search-app) application from GitHub
  * Build the application using **mvn package**
  * Run the application using **java -jar target\movies-search-app-0.0.1-SNAPSHOT.jar**
  * Consume web app from **localhost:1028**
