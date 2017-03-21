@@ -73,7 +73,8 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 					"search_query"
 					, "search_query_name"
 					, "searchByField"
-					, "searchByFieldPerfix"}, allEntries=true)
+					, "searchByFieldPerfix"
+					, "searchByFieldPattern"}, allEntries=true)
 	public <T> void insert(T object) throws SearchBoxOperationsException {
 		saveModel(object, StoreModes.INSERT);
 	}
@@ -83,7 +84,8 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			"search_query"
 			, "search_query_name"
 			, "searchByField"
-			, "searchByFieldPerfix"}, allEntries=true)
+			, "searchByFieldPerfix"
+			, "searchByFieldPattern"}, allEntries=true)
 	public <T> void update(T object) throws SearchBoxOperationsException {
 		saveModel(object, StoreModes.UPDATE);
 	}
@@ -93,7 +95,8 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			"search_query"
 			, "search_query_name"
 			, "searchByField"
-			, "searchByFieldPerfix"}, allEntries=true)
+			, "searchByFieldPerfix"
+			, "searchByFieldPattern"}, allEntries=true)
 	public <T> void save(T object) throws SearchBoxOperationsException {
 		saveModel(object, StoreModes.SAVE);
 	}
@@ -216,7 +219,8 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			"search_query"
 			, "search_query_name"
 			, "searchByField"
-			, "searchByFieldPerfix"}, allEntries=true)
+			, "searchByFieldPerfix"
+			, "searchByFieldPattern"}, allEntries=true)
 	public <T> void delete(T object) throws SearchBoxOperationsException {
 
 		try {
@@ -247,7 +251,8 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			"search_query"
 			, "search_query_name"
 			, "searchByField"
-			, "searchByFieldPerfix"}, allEntries=true)
+			, "searchByFieldPerfix"
+			, "searchByFieldPattern"}, allEntries=true)
 	public <T> void delete(Class<T> cls, Object id) throws SearchBoxOperationsException {
 
 		try {
