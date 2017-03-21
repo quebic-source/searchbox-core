@@ -11,8 +11,9 @@ searchbox is a lightweight search framework built on redis.
 ### Full Documentation
 See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full documentation, examples, operational details and other information.
 
-### Getting Started
-  * Add searchbox dependency.
+### Getting Started	
+  * Download the dependency then Install dependency by using **mvn install**
+  * Add searchbox dependency into your project
   ```xml
   
     <dependency>
@@ -22,8 +23,6 @@ See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full do
 	</dependency>
   
   ```
-
-  * Install searchbox-core dependency by using **mvn install**
 
 ### Sample application
  * Download the [movies-search-app](https://github.com/quebic-source/searchbox-samples/tree/master/movies-search-app) application from GitHub
