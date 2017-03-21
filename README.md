@@ -1,7 +1,7 @@
 # searchbox
 searchbox is a lightweight search framework built on redis.
 
-![searchbox](https://github.com/loviworld/searchbox-core/blob/master/searchbox_inside_redis.png)
+![searchbox](https://github.com/quebic-source/searchbox-core/blob/master/searchbox_inside_redis.png)
 
 ### Prerequisities
   * JDK 1.8.X
@@ -9,7 +9,7 @@ searchbox is a lightweight search framework built on redis.
   * Redis 2.6.X
 
 ### Full Documentation
-See the [Wiki](https://github.com/loviworld/searchbox-core/wiki) for full documentation, examples, operational details and other information.
+See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full documentation, examples, operational details and other information.
 
 ### Getting Started
   * Add searchbox dependency.
