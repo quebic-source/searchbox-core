@@ -46,11 +46,31 @@ redis.call('HDEL', table_set_key, id)
 
 for k,v in pairs(cjson.decode(modelData)) do
 	
-	local autocomplete_set_key = app_name .. ':' .. auto_prefix .. ':' .. model_name .. ':' .. k .. ':*'
-	remove_autocomplete_set(autocomplete_set_key, v, id)
-	
-	local index_set_key = app_name .. ':' .. index_prefix .. ':' .. model_name .. ':' .. k .. ':' .. remove_spaces(v)
-	remove_index_set(index_set_key, id)
+	if (type(v) ~= 'userdata') then
+		if(type(v) == 'table') then
+			
+			for sub_k,sub_v in pairs(v) do
+				if (type(sub_v) ~= 'userdata') then
+				
+					local autocomplete_set_key = app_name .. ':' .. auto_prefix .. ':' .. model_name .. ':' .. k .. ':*'
+					remove_autocomplete_set(autocomplete_set_key, sub_v, id)
+				
+					local index_set_key = app_name .. ':' .. index_prefix .. ':' .. model_name .. ':' .. k .. ':' .. remove_spaces(sub_v)
+            		remove_index_set(index_set_key, id)
+            		
+				end
+			end
+		
+		else
+			
+			local autocomplete_set_key = app_name .. ':' .. auto_prefix .. ':' .. model_name .. ':' .. k .. ':*'
+			remove_autocomplete_set(autocomplete_set_key, v, id)
+		
+			local index_set_key = app_name .. ':' .. index_prefix .. ':' .. model_name .. ':' .. k .. ':' .. remove_spaces(v)
+			remove_index_set(index_set_key, id)
+			
+		end
+	end
 	
 end
 

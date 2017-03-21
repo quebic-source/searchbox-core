@@ -22,6 +22,8 @@ import org.springframework.util.StringUtils;
 import com.lovi.searchbox.annotation.Id;
 import com.lovi.searchbox.annotation.Index;
 import com.lovi.searchbox.common.ErrorMessage;
+import com.lovi.searchbox.common.exception.SearchResourceDuplicate;
+import com.lovi.searchbox.common.exception.SearchResourceNotFound;
 import com.lovi.searchbox.config.SearchBoxConfig;
 import com.lovi.searchbox.exception.SearchBoxOperationsException;
 import com.lovi.searchbox.exception.query.QueryFunctionNotFoundException;
@@ -132,7 +134,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 					case INSERT:
 						
 						if(modelDataRedisCaller.getModelById(tableName, String.valueOf(id)) != null){
-							throw new Exception(ErrorMessage.id_duplicate);
+							throw new SearchResourceDuplicate();
 						}
 
 						objectMapper = new ObjectMapper();
@@ -145,7 +147,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 					case UPDATE:
 						
 						if(modelDataRedisCaller.getModelById(tableName, String.valueOf(id)) == null){
-							throw new Exception(ErrorMessage.id_value_not_found);
+							throw new SearchResourceNotFound();
 						}
 						
 						modelDataRedisCaller.removeModelById(tableName, String.valueOf(id));
