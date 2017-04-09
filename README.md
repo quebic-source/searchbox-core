@@ -171,7 +171,6 @@ searchBoxOperations.search("query1", parms);
 <T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
 ``` 
 * example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
-* note : QueryFunctions are load when server boot. Always recommended use QueryFunctions insted of using **search with Query** because of QueryFunctions are faster than **search with Query**.
 
 ## Authors
 * Tharanga Thennakoon - tharanganilupul@gmail.com 
