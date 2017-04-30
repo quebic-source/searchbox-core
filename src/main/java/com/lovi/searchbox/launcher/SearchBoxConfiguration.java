@@ -22,6 +22,7 @@ import com.lovi.searchbox.config.RedisConfig;
 import com.lovi.searchbox.config.SearchBoxConfig;
 import com.lovi.searchbox.query.QueryContainer;
 import com.lovi.searchbox.redis.JedisConnectionPool;
+import com.lovi.searchbox.redis.impl.JedisConnectionPoolImpl;
 import com.lovi.searchbox.service.AsyncSearchBoxOperations;
 import com.lovi.searchbox.service.SearchBoxOperations;
 import com.lovi.searchbox.service.impl.AsyncSearchBoxOperationsImpl;
@@ -56,7 +57,7 @@ public class SearchBoxConfiguration{
 	
 	@Bean
 	public JedisConnectionPool jedisConnectionPool(RedisConfig redisConfig){
-		return new JedisConnectionPool(redisConfig);
+		return new JedisConnectionPoolImpl(redisConfig);
 	}
 	
 	@Bean
