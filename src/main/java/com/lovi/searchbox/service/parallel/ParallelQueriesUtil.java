@@ -2,8 +2,6 @@ package com.lovi.searchbox.service.parallel;
 
 import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
-
-import com.lovi.searchbox.query.Query;
 import com.lovi.searchbox.service.AsyncSearchBoxOperations;
 import com.lovi.searchbox.service.search.SearchResult;
 import rx.Observable;
@@ -15,7 +13,7 @@ public class ParallelQueriesUtil {
 		return forkJoinPool.invoke(new ParallelQueryParmsTask<>(searchBoxOperations, parms));
 	}
 	
-	public static Observable<SearchResult<?>> runForQueries(AsyncSearchBoxOperations searchBoxOperations, Map<Class<?>, Query> queryMap){
+	public static Observable<SearchResult<?>> runForQueries(AsyncSearchBoxOperations searchBoxOperations, QueryMap queryMap){
 		ForkJoinPool forkJoinPool = new ForkJoinPool();
 		return forkJoinPool.invoke(new ParallelQueriesTask(searchBoxOperations, queryMap));
 	}

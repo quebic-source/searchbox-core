@@ -8,6 +8,7 @@ import com.lovi.searchbox.query.Query;
 import com.lovi.searchbox.service.AsyncSearchBoxOperations;
 import com.lovi.searchbox.service.SearchBoxOperations;
 import com.lovi.searchbox.service.parallel.ParallelQueriesUtil;
+import com.lovi.searchbox.service.parallel.QueryMap;
 import com.lovi.searchbox.service.search.Page;
 import com.lovi.searchbox.service.search.SearchResult;
 
@@ -192,11 +193,20 @@ public class AsyncSearchBoxOperationsImpl implements AsyncSearchBoxOperations{
 			return Single.error(e);
 		}
 	}
-
+	
 	@Override
 	public <T> Observable<SearchResult<T>> parallelQueries(Map<String, Map<String, Object>> parms) {
 		try{
 			return ParallelQueriesUtil.runForQueryParms(this, parms);
+		}catch(SearchBoxOperationsException e){
+			return Observable.error(e);
+		}
+	}
+
+	@Override
+	public Observable<SearchResult<?>> parallelQueries(QueryMap queryMap) {
+		try{
+			return ParallelQueriesUtil.runForQueries(this, queryMap);
 		}catch(SearchBoxOperationsException e){
 			return Observable.error(e);
 		}
