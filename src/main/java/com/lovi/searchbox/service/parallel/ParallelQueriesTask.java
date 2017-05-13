@@ -6,32 +6,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.RecursiveTask;
-import org.springframework.util.StringUtils;
+import com.lovi.searchbox.query.Query;
 import com.lovi.searchbox.service.AsyncSearchBoxOperations;
 import com.lovi.searchbox.service.search.SearchResult;
 import rx.Observable;
 import rx.Single;
 
-class ParallelQueriesTask<E> extends RecursiveTask<Observable<SearchResult<E>>>{
+class ParallelQueriesTask extends RecursiveTask<Observable<SearchResult<?>>>{
 
 	private static final long serialVersionUID = 9139302166395761908L;
 	
 	private AsyncSearchBoxOperations searchBoxOperations;
-	private Map<String, Map<String, Object>> queryparms;
+	private Map<Class<?>, Query> queryMap;
 	private boolean compute;
 	
-	ParallelQueriesTask(AsyncSearchBoxOperations searchBoxOperations, Map<String, Map<String, Object>> parms){
-		this(searchBoxOperations, parms, false);
+	ParallelQueriesTask(AsyncSearchBoxOperations searchBoxOperations, Map<Class<?>, Query> queryMap){
+		this(searchBoxOperations, queryMap, false);
 	}
 	
-	private ParallelQueriesTask(AsyncSearchBoxOperations searchBoxOperations, Map<String, Map<String, Object>> parms, boolean compute){
+	private ParallelQueriesTask(AsyncSearchBoxOperations searchBoxOperations, Map<Class<?>, Query> queryMap, boolean compute){
 		this.searchBoxOperations = searchBoxOperations;
-		this.queryparms = parms;
+		this.queryMap = queryMap;
 		this.compute = compute;
 	}
+	
+	
 
 	@Override
-	protected Observable<SearchResult<E>> compute() {
+	protected Observable<SearchResult<?>> compute() {
 		
 		if(!compute){
 			
@@ -43,25 +45,26 @@ class ParallelQueriesTask<E> extends RecursiveTask<Observable<SearchResult<E>>>{
 			return process();
 	}
 	
-	private Observable<SearchResult<E>> process(){
+	@SuppressWarnings("unchecked")
+	private Observable<SearchResult<?>> process(){
 		
-		Observable<SearchResult<E>> searchResults = null;
+		Observable<SearchResult<?>> searchResults = null;
 		
-		if(!queryparms.isEmpty()){
+		if(!queryMap.isEmpty()){
 			
-			String queryName = null;
-			Map<String, Object> inputParms = null;
+			Class<?> queryClass = null;
+			Query query = null;
 			
-			for(Entry<String, Map<String, Object>> entry : queryparms.entrySet()){
-				queryName = entry.getKey();
-				inputParms = entry.getValue();
+			for(Entry<Class<?>, Query> entry : queryMap.entrySet()){
+				queryClass = entry.getKey();
+				query = entry.getValue();
 				break;
 			}
 			
-			if(!StringUtils.isEmpty(queryName) && !StringUtils.isEmpty(inputParms)){
-				Single<SearchResult<E>> singleSearchResult = searchBoxOperations.search(queryName, inputParms);
-				searchResults = singleSearchResult.toObservable();
-			}
+			Single<?> singleSearchResult = searchBoxOperations.search(queryClass, query);
+			searchResults = (Observable<SearchResult<?>>) singleSearchResult.toObservable();
+			
+			searchBoxOperations.search(queryClass, query);
 			
 		}
 		
@@ -69,15 +72,15 @@ class ParallelQueriesTask<E> extends RecursiveTask<Observable<SearchResult<E>>>{
 		
 	}
 	
-	private List<ParallelQueriesTask<E>> createSubs(){
+	private List<ParallelQueriesTask> createSubs(){
 		
-		List<ParallelQueriesTask<E>> tasks = new ArrayList<>();	
+		List<ParallelQueriesTask> tasks = new ArrayList<>();	
 		
-		for(Entry<String, Map<String, Object>> entry : queryparms.entrySet()){
-			Map<String, Map<String, Object>> _queryparms = new HashMap<>();
-			_queryparms.put(entry.getKey(), entry.getValue());
+		for(Entry<Class<?>, Query> entry : queryMap.entrySet()){
+			Map<Class<?>, Query> _queryMap = new HashMap<>();
+			_queryMap.put(entry.getKey(), entry.getValue());
 			
-			ParallelQueriesTask<E> parallelQueriesTask = new ParallelQueriesTask<>(searchBoxOperations, _queryparms, true);
+			ParallelQueriesTask parallelQueriesTask = new ParallelQueriesTask(searchBoxOperations, _queryMap, true);
 			tasks.add(parallelQueriesTask);
 		}
 		
