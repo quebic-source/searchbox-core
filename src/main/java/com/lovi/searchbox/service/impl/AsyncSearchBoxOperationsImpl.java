@@ -196,7 +196,7 @@ public class AsyncSearchBoxOperationsImpl implements AsyncSearchBoxOperations{
 	@Override
 	public <T> Observable<SearchResult<T>> parallelQueries(Map<String, Map<String, Object>> parms) {
 		try{
-			return ParallelQueriesUtil.run(this, parms);
+			return ParallelQueriesUtil.runForQueryParms(this, parms);
 		}catch(SearchBoxOperationsException e){
 			return Observable.error(e);
 		}
