@@ -16,10 +16,19 @@ public class Query {
 	private Criteria criteria;
 
 	private Page page;
+	
+	private String queryName;
 
 	public Query(Criteria criteria) {
 		this.criteria = criteria;
 		this.page = new Page();
+		this.queryName = "";
+	}
+	
+	public Query(Criteria criteria, String queryName) {
+		this.criteria = criteria;
+		this.page = new Page();
+		this.queryName = queryName;
 	}
 
 	public Criteria getCriteria() {
@@ -131,6 +140,16 @@ public class Query {
 		this.page.setPageNo(pageNo);
 	}
 	
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
+	}
+
+
+
 	/**
 	 * ---Sort---
 	 */

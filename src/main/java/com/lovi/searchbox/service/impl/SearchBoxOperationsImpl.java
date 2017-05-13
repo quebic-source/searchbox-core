@@ -289,7 +289,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			
 			Object evalResult = scriptProcessor.runScript(script, keys, argv);
 
-			return prepareResult(modelName, query, start_time, evalResult);
+			return prepareResult(query.getQueryName(), modelName, query, start_time, evalResult);
 
 		} catch (Exception e) {
 			throw new SearchBoxOperationsException(e.getMessage(), e);
@@ -432,9 +432,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 		
 	}
 	
-	private <T> SearchResult<T> prepareResult(String modelName, Query query, double start_time, Object evalResult) throws Exception{
-		return prepareResult("", modelName, query, start_time, evalResult);
-	}
+	
 	
 	private <T> SearchResult<T> prepareResult(String queryName, String modelName, Query query, double start_time, Object evalResult) throws Exception{
 		
