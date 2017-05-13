@@ -61,8 +61,6 @@ class ParallelQueriesTask extends RecursiveTask<Observable<SearchResult<?>>>{
 			Single<?> singleSearchResult = searchBoxOperations.search(queryClass, query);
 			searchResults = (Observable<SearchResult<?>>) singleSearchResult.toObservable();
 			
-			searchBoxOperations.search(queryClass, query);
-			
 		}
 		
 		return searchResults;
