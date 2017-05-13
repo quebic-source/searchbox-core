@@ -2,6 +2,7 @@ package com.lovi.searchbox.service;
 
 import java.util.Map;
 import com.lovi.searchbox.query.Query;
+import com.lovi.searchbox.service.parallel.QueryMap;
 import com.lovi.searchbox.service.search.Page;
 import com.lovi.searchbox.service.search.SearchResult;
 
@@ -42,5 +43,6 @@ public interface AsyncSearchBoxOperations {
 	<T> Single<SearchResult<T>> searchByFieldPattern(Class<T> cls, String field, String pattern, Page page);
 	
 	<T> Observable<SearchResult<T>> parallelQueries(Map<String, Map<String, Object>> parms);
+	Observable<SearchResult<?>> parallelQueries(QueryMap queryMap);
 	
 }
