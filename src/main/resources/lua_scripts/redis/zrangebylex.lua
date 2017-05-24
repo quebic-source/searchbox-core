@@ -7,7 +7,7 @@ local function redis_zrangebylex(setName, prefix, allWords)
 	if allWords ~= true then
 	
 		local preparePrefixA = '[' .. splictedWords[1]
-		local preparePrefixB = '[' .. splictedWords[1] .. 'xff'
+		local preparePrefixB = '[' .. splictedWords[1] .. string.char('0xff')
 		local setNameFirstLevel = setName .. ':1'
 		local t = redis.call('ZRANGEBYLEX', setNameFirstLevel, preparePrefixA, preparePrefixB)
 			
@@ -25,7 +25,7 @@ local function redis_zrangebylex(setName, prefix, allWords)
 		for k,v in pairs(splictedWords) do
 	
 			local preparePrefixA = '[' .. v
-			local preparePrefixB = '[' .. v .. 'xff'
+			local preparePrefixB = '[' .. v .. string.char('0xff')
 			local searchSetPrefix = setName .. ':*'
 			
 			local cursor = '0'
