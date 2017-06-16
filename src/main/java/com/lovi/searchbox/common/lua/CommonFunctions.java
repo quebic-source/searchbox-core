@@ -72,6 +72,10 @@ public class CommonFunctions {
 		return LuaScriptUtil.readScript("redis/zrangebylex");
 	}
 	
+	public static String redis_projection_script() throws IOException{
+		return LuaScriptUtil.readScript("redis/projection");
+	}
+	
 	public static String redis_prepare_search_data_script() throws IOException{
 		
 		StringBuilder stmtStringBuilder = new StringBuilder();
