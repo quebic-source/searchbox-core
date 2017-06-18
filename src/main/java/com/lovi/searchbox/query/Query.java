@@ -61,6 +61,8 @@ public class Query {
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.json_get_value_from_json_script());
 		stmtStringBuilder.append("\n");
+		stmtStringBuilder.append(CommonFunctions.redis_projection_script());
+		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.redis_get_models_eq_script());
 		stmtStringBuilder.append("\n");
 		stmtStringBuilder.append(CommonFunctions.redis_get_models_by_ids_script());
