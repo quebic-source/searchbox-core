@@ -11,6 +11,10 @@ searchbox is a lightweight search framework built on redis.
 ### Full Documentation
 See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full documentation, examples, operational details and other information.
 
+### Related Articles
+  * [Getting started - searchbox](https://medium.com/@tharanganilupul/getting-started-searchbox-60e7a9c7538f) 
+  * [High performance search with searchbox + springboot](https://medium.com/@tharanganilupul/high-performance-search-with-searchbox-springboot-8c9f48a62a74) 
+
 ### Getting Started	
   * Download the dependency then Install dependency by using **mvn install**
   * Add searchbox dependency into your project
