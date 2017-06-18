@@ -430,6 +430,15 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			argv.add(String.valueOf(page.getPageNo()));
 		}
 		
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Integer> hideFields = new HashMap<>();
+		hideFields.put("id", 1);
+		hideFields.put("itemTypesz", 1);
+		try {
+			argv.add(objectMapper.writeValueAsString(hideFields));
+		} catch (Exception e) {
+		}
+		
 	}
 	
 	
