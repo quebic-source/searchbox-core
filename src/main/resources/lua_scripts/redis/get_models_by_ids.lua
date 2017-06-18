@@ -1,4 +1,4 @@
-local function get_models_by_ids(mapKey, modelIds, pageLength, pageNo)
+local function get_models_by_ids(mapKey, modelIds, pageLength, pageNo, hideFields)
 	
 	local totalIdsCount = #modelIds
 	local totalDocCount = 0
@@ -32,7 +32,7 @@ local function get_models_by_ids(mapKey, modelIds, pageLength, pageNo)
 		
 	end
 	
-	result['result'] = documents[pageNo];
+	result['result'] = projection(documents[pageNo], hideFields);
 	
 	result['documentsCount'] = totalDocCount;
 	
