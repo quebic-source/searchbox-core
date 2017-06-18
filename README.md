@@ -20,7 +20,7 @@ See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full do
   * Add searchbox dependency into your project
   ```xml
     <dependency>
-		<groupId>com.lovi.searchbox</groupId>
+		<groupId>com.quebic.searchbox</groupId>
 		<artifactId>searchbox-core</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</dependency>
