@@ -15,7 +15,6 @@ See the [Wiki](https://github.com/quebic-source/searchbox-core/wiki) for full do
   * Download the dependency then Install dependency by using **mvn install**
   * Add searchbox dependency into your project
   ```xml
-  
     <dependency>
 		<groupId>com.lovi.searchbox</groupId>
 		<artifactId>searchbox-core</artifactId>
