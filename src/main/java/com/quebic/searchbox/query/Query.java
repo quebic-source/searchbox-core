@@ -19,16 +19,17 @@ public class Query {
 	
 	private String queryName;
 
+	private Projection projection;
+	
 	public Query(Criteria criteria) {
-		this.criteria = criteria;
-		this.page = new Page();
-		this.queryName = "";
+		this(criteria, "");
 	}
 	
 	public Query(Criteria criteria, String queryName) {
 		this.criteria = criteria;
 		this.page = new Page();
 		this.queryName = queryName;
+		this.projection = new Projection();
 	}
 
 	public Criteria getCriteria() {
@@ -175,6 +176,26 @@ public class Query {
 	
 	/**
 	 * ---Sort---
+	 */
+	
+	/**
+	 * ---Projection---
+	 */
+	public Projection getProjection() {
+		return projection;
+	}
+	
+	public Query setHideField(String field){
+		this.projection.addHideField(field);
+		return this;
+	}
+
+	public Query setShowField(String field){
+		this.projection.addShowField(field);
+		return this;
+	}
+	/**
+	 * ---Projection---
 	 */
 	
 	@Override
