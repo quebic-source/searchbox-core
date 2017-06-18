@@ -96,6 +96,11 @@ public class Query {
 		stmtStringBuilder.append("local page_no = tonumber(ARGV[4])");
 		stmtStringBuilder.append("\n");
 		// setting page length
+		
+		// setting hideFields
+		stmtStringBuilder.append("local hideFields = ARGV[5]");
+		stmtStringBuilder.append("\n");
+		// setting hideFields
 
 		stmtStringBuilder.append("\n");
 		
@@ -115,7 +120,7 @@ public class Query {
 		// mapKey -> <app_name>:table:<model_name>
 		// get_models_by_ids(mapKey, modelIds, pageLength, pageNo)
 		String getModelsStmt = String.format(
-				"return get_models_by_ids(app_name .. ':%1$s:' .. model_name, _parm, page_length, page_no)",
+				"return get_models_by_ids(app_name .. ':%1$s:' .. model_name, _parm, page_length, page_no, hideFields)",
 				ConfigKeys.table_perfix);
 
 		stmtStringBuilder.append(getModelsStmt);

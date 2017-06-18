@@ -5,8 +5,9 @@ local function projection(t, hideFields)
   	for index = 1, #t do
   		
   		local result = cjson.decode(t[index])
+  		local hideFieldsTable = cjson.decode(hideFields)
   		
-  		for k,v in pairs(hideFields) do
+  		for k,v in pairs(hideFieldsTable) do
   			result[k] = nil
   		end
   		
