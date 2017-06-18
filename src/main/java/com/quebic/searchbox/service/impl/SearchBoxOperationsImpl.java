@@ -30,6 +30,7 @@ import com.quebic.searchbox.exception.SearchBoxOperationsException;
 import com.quebic.searchbox.exception.query.QueryFunctionNotFoundException;
 import com.quebic.searchbox.exception.query.QueryFunctionParmsException;
 import com.quebic.searchbox.query.Criteria;
+import com.quebic.searchbox.query.Projection;
 import com.quebic.searchbox.query.Query;
 import com.quebic.searchbox.query.QueryContainer;
 import com.quebic.searchbox.query.QueryHolder;
@@ -286,7 +287,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			List<String> keys = query.getCriteria().getCriteriaChain();
 
 			List<String> argv = new ArrayList<>();
-			prepareArgv(argv, modelName, page);
+			prepareArgv(argv, cls, page, query.getProjection());
 			
 			Object evalResult = scriptProcessor.runScript(script, keys, argv);
 
@@ -335,7 +336,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			}
 
 			List<String> argv = new ArrayList<>();
-			prepareArgv(argv, modelName, page);
+			prepareArgv(argv, modelClass, page, query.getProjection());
 			
 			Object evalResult = scriptProcessor.runScriptByEvalsha(queryName, keys, argv);
 			
@@ -417,10 +418,10 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 
 	}
 	
-	private void prepareArgv(List<String> argv, String modelName, Page page){
+	private void prepareArgv(List<String> argv, Class<?> modelClass, Page page, Projection projection){
 		
 		argv.add(config.getAppname()); // app name -> ARGV[1]
-		argv.add(modelName); // model name -> ARGV[2]
+		argv.add(modelClass.getSimpleName()); // model name -> ARGV[2]
 		argv.add(String.valueOf(config.getPage().getLength())); // page length -> ARGV[3]
 
 		Page defaultPage = new Page();
@@ -431,17 +432,55 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			argv.add(String.valueOf(page.getPageNo()));
 		}
 		
-		ObjectMapper objectMapper = new ObjectMapper();
-		Map<String, Integer> hideFields = new HashMap<>();
-		hideFields.put("id", 1);
-		hideFields.put("itemTypesz", 1);
-		try {
-			argv.add(objectMapper.writeValueAsString(hideFields));
-		} catch (Exception e) {
-		}
+		extractHideFields(argv, modelClass, projection);
 		
 	}
 	
+	private void extractHideFields(List<String> argv, Class<?> modelClass, Projection projection){
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		Map<String, Integer> hideFields = projection.getHidefields();
+		Map<String, Integer> showfields = projection.getShowfields();
+		
+		if(hideFields != null){
+			try {
+				argv.add(objectMapper.writeValueAsString(hideFields));
+			} catch (Exception e) {
+				
+			}
+		}else if(showfields != null){
+			
+			hideFields = new HashMap<>();
+			
+			for(Field field : modelClass.getDeclaredFields()){
+				
+				try{
+					//check field is annotated by Index
+					field.getAnnotation(Index.class);
+					
+					//check this field is not mentions as showFields. 
+					//If not this field must be hide 
+					String fieldName = field.getName();
+					
+					if(!showfields.containsKey(fieldName))
+						hideFields.put(fieldName, 1);
+						
+					
+				}catch(NullPointerException e){
+				}
+			}
+			
+			try {
+				
+				if(!hideFields.isEmpty())
+					argv.add(objectMapper.writeValueAsString(hideFields));
+				
+			} catch (Exception e) {
+			}
+			
+		}
+	
+	}
 	
 	
 	private <T> SearchResult<T> prepareResult(String queryName, String modelName, Query query, double start_time, Object evalResult) throws Exception{
