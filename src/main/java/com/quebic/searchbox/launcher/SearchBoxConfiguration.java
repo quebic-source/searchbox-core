@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.quebic.searchbox.common.async.handlers.AsyncResponseEntityReturnHandler;
+import com.quebic.searchbox.common.controller.CommonController;
 import com.quebic.searchbox.config.HttpServerConfig;
 import com.quebic.searchbox.config.HttpServerCustomizer;
 import com.quebic.searchbox.config.RedisConfig;
@@ -111,5 +112,10 @@ public class SearchBoxConfiguration{
             }
         };
     }
+	
+	@Bean
+	public CommonController commonController(){
+		return new CommonController();
+	}
 	
 }
