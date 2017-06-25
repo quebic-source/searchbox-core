@@ -26,11 +26,13 @@ public interface SearchBoxOperations {
 	<T> SearchResult<T> search(Class<T> cls, Query query) throws SearchBoxOperationsException;
 	<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
 	
+	<T> SearchResult<T> search(Class<T> cls, String queryJson) throws SearchBoxOperationsException;
+	<T> SearchResult<T> search(Class<T> cls, String queryJson, Page page) throws SearchBoxOperationsException;
+	
 	<T> SearchResult<T> search(String queryName) throws SearchBoxOperationsException;
 	<T> SearchResult<T> search(String queryName, Map<String, Object> inputParms) throws SearchBoxOperationsException;
 	<T> SearchResult<T> search(String queryName, Map<String, Object> inputParms, Page page) throws SearchBoxOperationsException;
 	
-
 	<T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue) throws SearchBoxOperationsException;
 	<T> SearchResult<T> searchByField(Class<T> cls, String field, Object searchValue, Page page) throws SearchBoxOperationsException;
 	

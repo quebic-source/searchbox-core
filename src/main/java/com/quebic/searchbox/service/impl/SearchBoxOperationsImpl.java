@@ -2,7 +2,6 @@ package com.quebic.searchbox.service.impl;
 
 import static com.quebic.searchbox.config.ConfigKeys.lua_input_parm_key;
 import static com.quebic.searchbox.config.ConfigKeys.lua_input_parm_value;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,15 +10,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quebic.searchbox.annotation.Id;
 import com.quebic.searchbox.annotation.Index;
 import com.quebic.searchbox.common.ErrorMessage;
@@ -30,6 +29,7 @@ import com.quebic.searchbox.exception.SearchBoxOperationsException;
 import com.quebic.searchbox.exception.query.QueryFunctionNotFoundException;
 import com.quebic.searchbox.exception.query.QueryFunctionParmsException;
 import com.quebic.searchbox.query.Criteria;
+import com.quebic.searchbox.query.JsonQueryParser;
 import com.quebic.searchbox.query.Projection;
 import com.quebic.searchbox.query.Query;
 import com.quebic.searchbox.query.QueryContainer;
@@ -298,6 +298,27 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 		}
 
 	}
+	
+	@Override
+	public <T> SearchResult<T> search(Class<T> cls, String queryJson) throws SearchBoxOperationsException {
+		return search(cls, queryJson, null);
+	}
+
+	@Override
+	public <T> SearchResult<T> search(Class<T> cls, String queryJson, Page page) throws SearchBoxOperationsException {
+	
+		try{
+			JsonQueryParser jsonQueryParser = new JsonQueryParser();
+			ObjectMapper objectMapper = new ObjectMapper();
+			JsonNode jsonNode = objectMapper.readTree(queryJson);
+			Criteria criteria = jsonQueryParser.process(jsonNode);
+			Query query = new Query(criteria);
+			return search(cls, query, page);
+		}catch(Exception e){
+			throw new SearchBoxOperationsException(e);
+		}
+		
+	}
 
 	@Override
 	@Cacheable("search_query_name")
@@ -370,14 +391,14 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 			if (json_lua_input_parm_key != null && json_lua_input_parm_value != null) {
 
 				// key
-				String key_txt = json_lua_input_parm_key.getTextValue();
+				String key_txt = json_lua_input_parm_key.asText();
 				if (key_txt.startsWith("@")) {
 
 					String orgi_key = key_txt.substring(1);
 					JsonNode json_in = json_input_parms.get(orgi_key);
 
 					if (json_in != null)
-						new_m.put(lua_input_parm_key, json_in.getTextValue());
+						new_m.put(lua_input_parm_key, json_in.asText());
 					else
 						notFoundParms.add(orgi_key);
 
@@ -387,14 +408,14 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 				// key
 
 				// value
-				String value_txt = json_lua_input_parm_value.getTextValue();
+				String value_txt = json_lua_input_parm_value.asText();
 				if (value_txt.startsWith("@")) {
 
 					String orgi_key = value_txt.substring(1);
 					JsonNode json_in = json_input_parms.get(orgi_key);
 
 					if (json_in != null)
-						new_m.put(lua_input_parm_value, json_in.getTextValue());
+						new_m.put(lua_input_parm_value, json_in.asText());
 					else
 						notFoundParms.add(orgi_key);
 
@@ -488,10 +509,10 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode evalResultJsonObject = objectMapper.readTree(evalResult.toString());
 
-		int pageLength = evalResultJsonObject.get("pageLength").getIntValue();
-		int pagesCount = evalResultJsonObject.get("pagesCount").getIntValue();
-		int pageNo = evalResultJsonObject.get("pageNo").getIntValue();
-		int documentsCount = evalResultJsonObject.get("documentsCount").getIntValue();
+		int pageLength = evalResultJsonObject.get("pageLength").asInt();
+		int pagesCount = evalResultJsonObject.get("pagesCount").asInt();
+		int pageNo = evalResultJsonObject.get("pageNo").asInt();
+		int documentsCount = evalResultJsonObject.get("documentsCount").asInt();
 		
 		JsonNode resultJsonNode = evalResultJsonObject.get("result");
 
@@ -500,7 +521,7 @@ public class SearchBoxOperationsImpl implements SearchBoxOperations {
 		if (resultJsonNode != null) {
 			Iterator<JsonNode> iterator = resultJsonNode.iterator();
 			while (iterator.hasNext()) {
-				String jsonStr = iterator.next().getTextValue();
+				String jsonStr = iterator.next().asText();
 				result.add(objectMapper.readValue(jsonStr, new TypeReference<T>() {
 				}));
 			}

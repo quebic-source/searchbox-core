@@ -1,13 +1,11 @@
 package com.quebic.searchbox.service;
 
 import java.util.Map;
-
 import com.quebic.searchbox.query.Query;
 import com.quebic.searchbox.service.parallel.ParallelResult;
 import com.quebic.searchbox.service.parallel.QueryMap;
 import com.quebic.searchbox.service.search.Page;
 import com.quebic.searchbox.service.search.SearchResult;
-
 import rx.Observable;
 import rx.Single;
 
@@ -28,6 +26,9 @@ public interface AsyncSearchBoxOperations {
 	
 	<T> Single<SearchResult<T>> search(Class<T> cls, Query query);
 	<T> Single<SearchResult<T>> search(Class<T> cls, Query query, Page page);
+	
+	<T> Single<SearchResult<T>> search(Class<T> cls, String queryJson);
+	<T> Single<SearchResult<T>> search(Class<T> cls, String queryJson, Page page);
 	
 	<T> Single<SearchResult<T>> search(String queryName);
 	<T> Single<SearchResult<T>> search(String queryName, Map<String, Object> inputParms);

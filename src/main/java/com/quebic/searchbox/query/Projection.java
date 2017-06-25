@@ -1,6 +1,7 @@
 package com.quebic.searchbox.query;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Projection {
@@ -24,6 +25,24 @@ public class Projection {
 			this.showfields = new HashMap<>();
 		
 		this.showfields.put(field, 1);
+		
+		return this;
+	}
+	
+	public Projection addHideFields(List<String> fields){
+		
+		for (String field : fields) {
+			addHideField(field);
+		}
+		
+		return this;
+	}
+	
+	public Projection addShowFields(List<String> fields){
+		
+		for (String field : fields) {
+			addShowField(field);
+		}
 		
 		return this;
 	}
