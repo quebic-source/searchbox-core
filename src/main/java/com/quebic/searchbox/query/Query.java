@@ -1,5 +1,8 @@
 package com.quebic.searchbox.query;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.quebic.searchbox.common.lua.CommonFunctions;
 import com.quebic.searchbox.config.ConfigKeys;
 import com.quebic.searchbox.query.sort.Sort;
@@ -192,6 +195,24 @@ public class Query {
 
 	public Query setShowField(String field){
 		this.projection.addShowField(field);
+		return this;
+	}
+	
+	public Query setHideFields(String ...fields){
+		return setHideFields(Arrays.asList(fields));
+	}
+	
+	public Query setHideFields(List<String> fields){
+		this.projection.addHideFields(fields);
+		return this;
+	}
+	
+	public Query setShowFields(String ...fields){
+		return setShowFields(Arrays.asList(fields));
+	}
+
+	public Query setShowFields(List<String> fields){
+		this.projection.addShowFields(fields);
 		return this;
 	}
 	/**

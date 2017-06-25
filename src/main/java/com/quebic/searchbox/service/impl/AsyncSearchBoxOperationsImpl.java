@@ -94,6 +94,24 @@ public class AsyncSearchBoxOperationsImpl implements AsyncSearchBoxOperations{
 			return Single.error(e);
 		}
 	}
+	
+	@Override
+	public <T> Single<SearchResult<T>> search(Class<T> cls, String queryJson) {
+		try{
+			return Single.just(searchBoxOperations.search(cls, queryJson));
+		}catch(SearchBoxOperationsException e){
+			return Single.error(e);
+		}
+	}
+
+	@Override
+	public <T> Single<SearchResult<T>> search(Class<T> cls, String queryJson, Page page) {
+		try{
+			return Single.just(searchBoxOperations.search(cls, queryJson, page));
+		}catch(SearchBoxOperationsException e){
+			return Single.error(e);
+		}
+	}
 
 	@Override
 	public <T> Single<SearchResult<T>> search(String queryName) {
