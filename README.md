@@ -133,7 +133,14 @@ public class MovieController {
 ``` 
 * example ```searchBoxOperations.searchByFieldPattern(Movie.class, "title", "*nic")``` => ["Titanic", ...]
 
-### Query Functions
+## Criteria Api
+```java 
+<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
+``` 
+* you can query your data with Criteria Api
+* example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
+
+## Query Functions
 ```java 
 @QueryController
 public class QueryFunctions {
@@ -168,12 +175,6 @@ parms.put("parm_value", "Avatar");
 searchBoxOperations.search("query1", parms);
 
 ```
-
-### search with Query
-```java 
-<T> SearchResult<T> search(Class<T> cls, Query query, Page page) throws SearchBoxOperationsException;
-``` 
-* example ```searchBoxOperations.search(Movie.class, new Query(Criteria.where("id").is(7)))```
 
 ## Authors
 * Tharanga Thennakoon - tharanganilupul@gmail.com 
